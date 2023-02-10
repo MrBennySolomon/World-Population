@@ -1,12 +1,13 @@
-  const btnEurope  = document.querySelector('.europe');
-  const btnAsia    = document.querySelector('.asia');
-  const btnAmerica = document.querySelector('.america');
-  const btnAfrica  = document.querySelector('.africa');
+  const btnEurope    = document.querySelector('.europe');
+  const btnAsia      = document.querySelector('.asia');
+  const btnAmerica   = document.querySelector('.america');
+  const btnAfrica    = document.querySelector('.africa');
+  const countriesDiv = document.querySelector('.countries');
 
   const ctx = document.getElementById('myChart');
   const printChart = (country, citiesArr, populationArr, yearsArr) => {
     new Chart(ctx, {
-      type: 'bubble',
+      type: 'line',
       data: {
         
         labels: [...citiesArr],
@@ -39,7 +40,7 @@
   }
   
 
-
+  var allRegions;  
   const fetchCountry = async (country) => {
     const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
     const info = await response.json();
@@ -55,26 +56,34 @@
   const fetchRegion = async (region) => {
     const response = await fetch(`https://restcountries.com/v3.1/region/${region}`);
     const info = await response.json();
-    //localStorage.setItem('continentsData', info);
+    // localStorage.setItem(region, info);
     return info;
   };
   
   const europe = fetchRegion('africa');
 
   const fetchPopulation = async () => {
+
     const response = await fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`);
     const info = await response.json();
-    //localStorage.setItem('populationData', info.data);
+    //localStorage.setItem('allPopulationData', info.data);
     //getPopulation(info.data, 'Israel');
+
     getPopulation(info.data, 'France');
+    return info.data;
   };
+
   
   const allPopulation = fetchPopulation();
-  
+
+  // console.log('allPopulation', allPopulation);
+
   const getPopulation = async (data, country) => {
+    //localStorage.setItem('allPopulationData', data);
     const citiesArr = [];
     const yearsArr = [];
     const populationArr = [];
+
     for (let i = 0; i < data.length; i++) {
       const obj = {};
       obj.data = [];
@@ -110,22 +119,36 @@
     // console.log(yearsArr);
     // console.log(populationArr);
     printChart('israel', citiesArr, populationArr, yearsArr)
+    localStorage.setItem('allPopulationData', JSON.stringify(data));
   }
 
 btnEurope.addEventListener('click', (event) => {
-  const europe = fetchRegion('Europe');
-  console.log('europe', europe);
+
+  var europe;
+  if (localStorage.getItem('europe') === 'null') {
+    fetchRegion('Europe').then(data => {
+      localStorage.setItem('europe', JSON.stringify(data));
+      europe = localStorage.getItem('europe');
+      for
+    });
+  }
 });
 btnAsia.addEventListener('click', (event) => {
-  const asia = fetchRegion('Asia');
-  console.log('asia', asia);
+  var asia;
+  if (localStorage.getItem('asia') === 'null') {
+    fetchRegion('Asia').then(data => localStorage.setItem('asia', JSON.stringify(data)));
+  }
 
 });
 btnAmerica.addEventListener('click', (event) => {
-  const america = fetchRegion('Americas');
-  console.log('america', america);
+  var america;
+  if (localStorage.getItem('america') === 'null') {
+    fetchRegion('Americas').then(data => localStorage.setItem('america', JSON.stringify(data)));
+  }
 });
 btnAfrica.addEventListener('click', (event) => {
-  const africa = fetchRegion('Africa');
-  console.log('africa', africa);
+  var africa;
+  if (localStorage.getItem('africa') === 'null') {
+    fetchRegion('Africa').then(data => localStorage.setItem('africa', JSON.stringify(data)));
+  }
 });
