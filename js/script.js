@@ -6,7 +6,7 @@
   const ctx = document.getElementById('myChart');
   const printChart = (country, citiesArr, populationArr, yearsArr) => {
     new Chart(ctx, {
-      type: 'bar',
+      type: 'bubble',
       data: {
         
         labels: [...citiesArr],
