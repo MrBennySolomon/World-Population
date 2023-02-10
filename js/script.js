@@ -82,7 +82,7 @@ const fetchPopulation = async ()                                      => {
   }
 };
 allPopulation         = fetchPopulation().then((data) => allPopulation = data);
-const getPopulation   = async (data = JSON.parse(localStorage.getItem("allPopulationData")), country)                         => {
+const getPopulation   = async (data = allPopulation, country)                         => {
   const citiesArr     = [];
   const yearsArr      = [];
   const populationArr = [];
