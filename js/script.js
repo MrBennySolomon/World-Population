@@ -162,6 +162,7 @@ btnAfrica.addEventListener("click", (event)                           => {
 });
 countriesDiv.addEventListener("click", (e)                            => {
   fetchCountry(e.target.getAttribute("country"));
+  console.log(JSON.parse(localStorage.getItem("allPopulationData")));
   getPopulation(
     JSON.parse(localStorage.getItem("allPopulationData")),
     e.target.getAttribute("country")
