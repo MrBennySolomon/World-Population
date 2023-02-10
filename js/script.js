@@ -6,7 +6,6 @@ const countriesDiv    = document.querySelector('.countries');
 const chart           = document.querySelector('.chart');
 const spinner         = document.getElementById('spinner');
 const ctx             = document.getElementById('myChart');
-let allPopulationData;
 const printChart        = (country, citiesArr, populationArr, yearsArr) => {
   return new Chart(ctx, {
     type: "bar",
@@ -115,13 +114,12 @@ const getPopulation   = async (data, country)                         => {
     chartStatus.destroy();
   }
   printChart("israel", citiesArr, populationArr, yearsArr);
-  allPopulationData = data;
-  // localStorage.setItem("allPopulationData", JSON.stringify(data));
+  localStorage.setItem("allPopulationData", JSON.stringify(data));
 };
 btnEurope.addEventListener("click", (event)                           => {
   countriesDiv.innerHTML = "";
   fetchRegion("Europe").then((data) => {
-    // localStorage.setItem("europe", JSON.stringify(data));
+    localStorage.setItem("europe", JSON.stringify(data));
     for (let i = 0; i < data.length; i++) {
       countriesDiv.innerHTML += `
         <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
@@ -132,7 +130,7 @@ btnEurope.addEventListener("click", (event)                           => {
 btnAsia.addEventListener("click", (event)                             => {
   countriesDiv.innerHTML = "";
   fetchRegion("Asia").then((data) => {
-    // localStorage.setItem("asia", JSON.stringify(data));
+    localStorage.setItem("asia", JSON.stringify(data));
     for (let i = 0; i < data.length; i++) {
       countriesDiv.innerHTML += `
         <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
@@ -143,7 +141,7 @@ btnAsia.addEventListener("click", (event)                             => {
 btnAmerica.addEventListener("click", (event)                          => {
   countriesDiv.innerHTML = "";
   fetchRegion("Americas").then((data) => {
-    // localStorage.setItem("america", JSON.stringify(data));
+    localStorage.setItem("america", JSON.stringify(data));
     for (let i = 0; i < data.length; i++) {
       countriesDiv.innerHTML += `
         <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
@@ -154,7 +152,7 @@ btnAmerica.addEventListener("click", (event)                          => {
 btnAfrica.addEventListener("click", (event)                           => {
   countriesDiv.innerHTML = "";
   fetchRegion("Africa").then((data) => {
-    // localStorage.setItem("africa", JSON.stringify(data));
+    localStorage.setItem("africa", JSON.stringify(data));
     for (let i = 0; i < data.length; i++) {
       countriesDiv.innerHTML += `
         <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
@@ -164,6 +162,8 @@ btnAfrica.addEventListener("click", (event)                           => {
 });
 countriesDiv.addEventListener("click", (e)                            => {
   fetchCountry(e.target.getAttribute("country"));
-  console.log(JSON.parse(localStorage.getItem("allPopulationData")));
-  getPopulation(allPopulationData, e.target.getAttribute("country"));
+  getPopulation(
+    JSON.parse(localStorage.getItem("allPopulationData")),
+    e.target.getAttribute("country")
+  );
 });
