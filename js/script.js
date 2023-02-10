@@ -74,12 +74,13 @@ const fetchPopulation = async ()                                      => {
     );
     const info = await response.json();
     spinner.setAttribute("hidden", "");
-    return info.data;
+    localStorage.setItem("allPopulationData", JSON.stringify(data));
   } catch (error) {
     spinner.setAttribute("hidden", "");
     throw new Error("fetch population went wrong");
   }
 };
+fetchPopulation();
 const getPopulation   = async (data, country)                         => {
   const citiesArr     = [];
   const yearsArr      = [];
@@ -114,8 +115,6 @@ const getPopulation   = async (data, country)                         => {
     chartStatus.destroy();
   }
   printChart("israel", citiesArr, populationArr, yearsArr);
-  
-  localStorage.setItem("allPopulationData", JSON.stringify(data));
 };
 btnEurope.addEventListener("click", (event)                           => {
   countriesDiv.innerHTML = "";
