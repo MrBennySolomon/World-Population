@@ -3,11 +3,15 @@
   const btnAmerica   = document.querySelector('.america');
   const btnAfrica    = document.querySelector('.africa');
   const countriesDiv = document.querySelector('.countries');
+  const chart        = document.querySelector('.chart');
+  const spinner      = document.getElementById("spinner");
 
-  const ctx = document.getElementById('myChart');
-  const printChart = (country, citiesArr, populationArr, yearsArr) => {
-    new Chart(ctx, {
-      type: 'line',
+  let ctx = document.getElementById('myChart');
+  let flag = false;
+  let printChart = (country, citiesArr, populationArr, yearsArr) => {
+    flag = true;
+    return new Chart(ctx, {
+      type: 'bar',
       data: {
         
         labels: [...citiesArr],
@@ -42,44 +46,35 @@
 
   var allRegions;  
   const fetchCountry = async (country) => {
+    spinner.classList.toggle('hidden');
     const response = await fetch(`https://restcountries.com/v3.1/name/${country}`);
     const info = await response.json();
-
-    ctx.style.background = `url(${info[0].flags.png}) no-repeat center center/cover`;
-    //localStorage.setItem('countryData', info);
+    
+    chart.style.background = `url(${info[0].flags.png}) no-repeat center center/contain`;
+    spinner.classList.toggle('hidden');
     return info;
   };
-  
-  const israel = fetchCountry('israel');
-  const france = fetchCountry('france');
 
   const fetchRegion = async (region) => {
+    spinner.classList.toggle('hidden');
     const response = await fetch(`https://restcountries.com/v3.1/region/${region}`);
     const info = await response.json();
-    // localStorage.setItem(region, info);
+    spinner.classList.toggle('hidden');
     return info;
   };
   
-  const europe = fetchRegion('africa');
-
   const fetchPopulation = async () => {
-
+    spinner.classList.toggle('hidden');
     const response = await fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`);
     const info = await response.json();
-    //localStorage.setItem('allPopulationData', info.data);
-    //getPopulation(info.data, 'Israel');
-
-    getPopulation(info.data, 'France');
+    spinner.classList.toggle('hidden');
     return info.data;
   };
 
   
   const allPopulation = fetchPopulation();
 
-  // console.log('allPopulation', allPopulation);
-
   const getPopulation = async (data, country) => {
-    //localStorage.setItem('allPopulationData', data);
     const citiesArr = [];
     const yearsArr = [];
     const populationArr = [];
@@ -89,15 +84,11 @@
       obj.data = [];
       if (data[i].country === country) {
         const citySet = new Set();
-
-
         for (let j = 0; j < data[i].populationCounts.length; j++) {
-          
           
           if (data[i].populationCounts[j].value !== 'null' &&
               data[i].city != Number(data[i].city)) {
                 citySet.add(data[i].city);
-
               
             obj.data.push(
               {
@@ -111,44 +102,66 @@
         citiesArr.push(data[i].city);
         yearsArr.push(data[i].populationCounts[0].year);
         populationArr.push(data[i].populationCounts[0].value);
-        //localStorage.setItem(`${data[i].country}-${data[i].city}`, JSON.stringify(obj));
       }
     }
-    //console.log(localStorage.getItem('israel-Ashdod'));
-    // console.log(citiesArr);
-    // console.log(yearsArr);
-    // console.log(populationArr);
+    let chartStatus = Chart.getChart("myChart"); // <canvas> id
+    if (chartStatus != undefined) {
+      chartStatus.destroy();
+    }
     printChart('israel', citiesArr, populationArr, yearsArr)
     localStorage.setItem('allPopulationData', JSON.stringify(data));
   }
 
 btnEurope.addEventListener('click', (event) => {
-
-  var europe;
-  if (localStorage.getItem('europe') === 'null') {
-    fetchRegion('Europe').then(data => {
-      localStorage.setItem('europe', JSON.stringify(data));
-      europe = localStorage.getItem('europe');
-      for
-    });
-  }
+  countriesDiv.innerHTML = '';
+  fetchRegion('Europe').then(data => {
+    localStorage.setItem('europe', JSON.stringify(data));
+    for (let i = 0; i < data.length; i++) {
+      countriesDiv.innerHTML += 
+      `
+        <button class="flags-btn">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+      `;
+    }
+  });
 });
 btnAsia.addEventListener('click', (event) => {
-  var asia;
-  if (localStorage.getItem('asia') === 'null') {
-    fetchRegion('Asia').then(data => localStorage.setItem('asia', JSON.stringify(data)));
-  }
-
+  countriesDiv.innerHTML = '';
+  fetchRegion('Asia').then(data => {
+    localStorage.setItem('asia', JSON.stringify(data));
+    for (let i = 0; i < data.length; i++) {
+      countriesDiv.innerHTML += 
+      `
+        <button class="flags-btn">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+      `;
+    }
+  });
 });
 btnAmerica.addEventListener('click', (event) => {
-  var america;
-  if (localStorage.getItem('america') === 'null') {
-    fetchRegion('Americas').then(data => localStorage.setItem('america', JSON.stringify(data)));
-  }
+  countriesDiv.innerHTML = '';
+  fetchRegion('Americas').then(data => {
+    localStorage.setItem('america', JSON.stringify(data));
+    for (let i = 0; i < data.length; i++) {
+      countriesDiv.innerHTML += 
+      `
+        <button class="flags-btn">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+      `;
+    }
+  });
 });
 btnAfrica.addEventListener('click', (event) => {
-  var africa;
-  if (localStorage.getItem('africa') === 'null') {
-    fetchRegion('Africa').then(data => localStorage.setItem('africa', JSON.stringify(data)));
-  }
+  countriesDiv.innerHTML = '';
+  fetchRegion('Africa').then(data => {
+    localStorage.setItem('africa', JSON.stringify(data));
+    for (let i = 0; i < data.length; i++) {
+      countriesDiv.innerHTML += 
+      `
+        <button class="flags-btn">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+      `;
+    }
+  });
+});
+
+countriesDiv.addEventListener('click', (e) => {
+  fetchCountry(e.target.getAttribute('country'));
+  getPopulation(JSON.parse(localStorage.getItem('allPopulationData')), e.target.getAttribute('country'));
 });
