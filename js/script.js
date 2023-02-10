@@ -114,7 +114,7 @@ const getPopulation   = async (data, country)                         => {
     chartStatus.destroy();
   }
   printChart("israel", citiesArr, populationArr, yearsArr);
-  debugger
+  
   localStorage.setItem("allPopulationData", JSON.stringify(data));
 };
 btnEurope.addEventListener("click", (event)                           => {
