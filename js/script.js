@@ -6,7 +6,6 @@ const countriesDiv    = document.querySelector('.countries');
 const chart           = document.querySelector('.chart');
 const spinner         = document.getElementById('spinner');
 const ctx             = document.getElementById('myChart');
-let allPopulation;
 const printChart        = (country, citiesArr, populationArr, yearsArr) => {
   return new Chart(ctx, {
     type: "bar",
@@ -81,8 +80,7 @@ const fetchPopulation = async ()                                      => {
     throw new Error("fetch population went wrong");
   }
 };
-allPopulation         = fetchPopulation().then((data) => allPopulation = data);
-const getPopulation   = async (data = allPopulation, country)                         => {
+const getPopulation   = async (data, country)                         => {
   const citiesArr     = [];
   const yearsArr      = [];
   const populationArr = [];
