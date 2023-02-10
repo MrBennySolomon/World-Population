@@ -75,7 +75,7 @@ const fetchPopulation = async ()                                      => {
     );
     const info = await response.json();
     spinner.setAttribute("hidden", "");
-    return info;
+    return info.data;
   } catch (error) {
     spinner.setAttribute("hidden", "");
     throw new Error("fetch population went wrong");
