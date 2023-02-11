@@ -1,0 +1,183 @@
+* {
+  @extend %reset;
+
+  html {
+    @extend %normalize;
+  
+    body {
+    @extend %full-size;
+    @extend %flex;
+    @extend %flex-column;
+    @extend %dark-background;
+
+      .region {
+        @extend %flex-space-around;
+        @extend %region-size;
+        @extend %dark-background;
+
+          .europe,
+          .asia,
+          .america,
+          .africa {
+            @extend %region-btn-size;
+            @extend %region-btn-setup;
+            @extend %dark-background;
+          }
+      }
+
+      .chart {
+        @extend %chart-size;
+        @extend %flex;
+      }
+
+      .countries {
+        @extend %flex;
+        @extend %flex-wrep;
+        @extend %countries-size;
+        @extend %dark-background;
+        @extend %scroll;
+      }
+
+      button {
+        @extend %light-font-color;
+        @extend %dark-background;
+      }
+
+      .flags-btn {
+        @extend %flag-size;
+      }
+
+      #spinner:not([hidden]) {
+        @extend %fixed;
+        @extend %reset-position;
+        @extend %flex;
+      }
+
+      #spinner::after {
+        @extend %content;
+        @extend %spinner-size;
+        @extend %spinner-animation;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    }
+  }
+}
+
+%scroll {
+  overflow: scroll;
+}
+
+%countries-size {
+  width: 100%;
+  height: 30%;
+}
+
+%flex-wrep {
+  flex-wrap: wrap;
+}
+
+%content {
+  content: "";
+}
+
+%spinner-size {
+  width: 80px;
+  height: 80px;
+}
+
+%spinner-border {
+  border-top: 3px solid #bf4dbf;
+  border-radius: 100%;
+}
+
+%spinner-animation {
+  will-change: transform;
+  animation: spin 1s infinite linear;
+}
+
+%reset {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+%normalize {
+  font-size: 62.5%;
+}
+
+%full-size {
+  width: 100vw;
+  height: 100vh;
+}
+
+%flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+%flex-column {
+  flex-direction: column;
+}
+
+%dark-background {
+  background-color: black;
+}
+
+%region-size {
+  width: 100%;
+  height: 10%;
+}
+
+%flex-space-around {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap:0.1rem;
+}
+
+%region-btn-size {
+  height: 100%;
+  width: 24%;
+}
+
+%region-btn-setup {
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: white;
+}
+
+%chart-size {
+  width: 100%;
+  height: 60%;
+}
+
+%light-font-color {
+  color: white;
+}
+
+%flag-size {
+  width: 13rem;
+  height: 10rem;
+}
+
+%reset-position {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+%fixed {
+  position: fixed;
+}
