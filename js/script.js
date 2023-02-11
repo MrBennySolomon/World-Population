@@ -40,6 +40,7 @@ const printChart      = (country, citiesArr, populationArr, yearsArr)   => {
   });
 };
 const fetchCountry    = async (country)                                 => {
+  localStorage.setItem(country, country);
   spinner.removeAttribute("hidden");
   try {
     const response = await fetch(
@@ -118,51 +119,111 @@ const getPopulation   = async (data, country)                           => {
 };
 btnEurope.addEventListener("click", (event)                             => {
   countriesDiv.innerHTML = "";
-  fetchRegion("Europe").then((data) => {
-    localStorage.setItem("europe", JSON.stringify(data));
+  if (!localStorage.getItem("europe")) {
+    const data = JSON.parse(localStorage.getItem("europe"));
     for (let i = 0; i < data.length; i++) {
       countriesDiv.innerHTML += `
         <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
       `;
     }
-  });
+  }else{
+    fetchRegion("Europe").then((data) => {
+      localStorage.setItem("europe", JSON.stringify(data));
+      for (let i = 0; i < data.length; i++) {
+        countriesDiv.innerHTML += `
+          <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+        `;
+      }
+    });
+  }
 });
 btnAsia.addEventListener("click", (event)                               => {
   countriesDiv.innerHTML = "";
-  fetchRegion("Asia").then((data) => {
-    localStorage.setItem("asia", JSON.stringify(data));
+  if (!localStorage.getItem("asia")) {
+    const data = JSON.parse(localStorage.getItem("asia"));
     for (let i = 0; i < data.length; i++) {
       countriesDiv.innerHTML += `
         <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
       `;
     }
-  });
+  }else{
+    fetchRegion("Asia").then((data) => {
+      localStorage.setItem("asia", JSON.stringify(data));
+      for (let i = 0; i < data.length; i++) {
+        countriesDiv.innerHTML += `
+          <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+        `;
+      }
+    });
+  }
 });
 btnAmerica.addEventListener("click", (event)                            => {
   countriesDiv.innerHTML = "";
-  fetchRegion("Americas").then((data) => {
-    localStorage.setItem("america", JSON.stringify(data));
+  if (!localStorage.getItem("america")) {
+    const data = JSON.parse(localStorage.getItem("america"));
     for (let i = 0; i < data.length; i++) {
       countriesDiv.innerHTML += `
         <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
       `;
     }
-  });
+  }else{
+    fetchRegion("Americas").then((data) => {
+      localStorage.setItem("america", JSON.stringify(data));
+      for (let i = 0; i < data.length; i++) {
+        countriesDiv.innerHTML += `
+          <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+        `;
+      }
+    });
+  }
 });
 btnAfrica.addEventListener("click", (event)                             => {
   countriesDiv.innerHTML = "";
-  fetchRegion("Africa").then((data) => {
-    localStorage.setItem("africa", JSON.stringify(data));
+  if (!localStorage.getItem("africa")) {
+    const data = JSON.parse(localStorage.getItem("africa"));
     for (let i = 0; i < data.length; i++) {
       countriesDiv.innerHTML += `
         <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
       `;
     }
-  });
+  }else{
+    fetchRegion("Africa").then((data) => {
+      localStorage.setItem("africa", JSON.stringify(data));
+      for (let i = 0; i < data.length; i++) {
+        countriesDiv.innerHTML += `
+          <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+        `;
+      }
+    });
+  }
 });
 countriesDiv.addEventListener("click", (e)                              => {
   const countryName = e.target.getAttribute("country");
   fetchCountry(countryName);
   getPopulation(JSON.parse(localStorage.getItem("allPopulationData")), countryName);
 });
+const introScreen = () => {
+
+  if (!localStorage.getItem("africa")) {
+    fetchRegion("Africa").then((data) => {
+      localStorage.setItem("africa", JSON.stringify(data));
+    });
+  }
+  if (!localStorage.getItem("asia")) {
+    fetchRegion("Asia").then((data) => {
+      localStorage.setItem("asia", JSON.stringify(data));
+    });
+  }
+  if (!localStorage.getItem("america")) {
+    fetchRegion("Americas").then((data) => {
+      localStorage.setItem("america", JSON.stringify(data));
+    });
+  }
+  if (!localStorage.getItem("europe")) {
+    fetchRegion("Europe").then((data) => {
+      localStorage.setItem("europe", JSON.stringify(data));
+    });
+  }
+}
 fetchPopulation();
+introScreen();
