@@ -232,7 +232,7 @@ const introScreen = () => {
     chartStatus.destroy();
   }
   
-  printChart('all countries', countriesArr, populationArr, '2023');
+  printChart('all countries', countriesArr, populationArr, '1');
   spinner.setAttribute("hidden", "");
 }
 fetchPopulation();
