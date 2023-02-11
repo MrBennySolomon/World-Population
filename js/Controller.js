@@ -3,7 +3,7 @@ class Controller {
     this.view  = view;
     this.model = model;
   }
-§
+
   start() {
     this.model.fetchPopulation();
     this.introScreen();
