@@ -4,24 +4,24 @@
   to {
     transform: rotate(360deg); } }
 
-* html body .countries {
+* body .countries {
   overflow: scroll; }
 
-* html body .countries {
+* body .countries {
   width: 100%;
   height: 30%; }
 
-* html body .countries {
+* body .countries {
   flex-wrap: wrap; }
 
-* html body #spinner::after {
+* body #spinner::after {
   content: ""; }
 
-* html body #spinner::after {
+* body #spinner::after {
   width: 80px;
   height: 80px; }
 
-* html body #spinner::after {
+* body #spinner::after {
   will-change: transform;
   animation: spin 1s infinite linear; }
 
@@ -30,70 +30,70 @@
   padding: 0;
   box-sizing: border-box; }
 
-* html {
+* body {
   font-size: 62.5%; }
 
-* html body {
+* body {
   width: 100vw;
   height: 100vh; }
 
-* html body, * html body .chart, * html body .countries, * html body #spinner:not([hidden]) {
+* body, * body .chart, * body .countries, * body #spinner:not([hidden]) {
   display: flex;
   justify-content: center;
   align-items: center; }
 
-* html body {
+* body {
   flex-direction: column; }
 
-* html body, * html body .region, * html body .region .europe,
-* html body .region .asia,
-* html body .region .america,
-* html body .region .africa, * html body .countries, * html body button {
+* body, * body .region, * body .region .europe,
+* body .region .asia,
+* body .region .america,
+* body .region .africa, * body .region button, * body .countries, * body .countries button {
   background-color: black; }
 
-* html body .region {
+* body .region {
   width: 100%;
   height: 10%; }
 
-* html body .region {
+* body .region {
   display: flex;
   justify-content: space-around;
   align-items: center;
   gap: 0.1rem; }
 
-* html body .region .europe,
-* html body .region .asia,
-* html body .region .america,
-* html body .region .africa {
+* body .region .europe,
+* body .region .asia,
+* body .region .america,
+* body .region .africa {
   height: 100%;
   width: 24%; }
 
-* html body .region .europe,
-* html body .region .asia,
-* html body .region .america,
-* html body .region .africa {
+* body .region .europe,
+* body .region .asia,
+* body .region .america,
+* body .region .africa {
   text-decoration: none;
   border-radius: 5px;
   font-size: 1.7rem;
   font-weight: bold;
   color: white; }
 
-* html body .chart {
+* body .chart {
   width: 100%;
   height: 60%; }
 
-* html body button {
+* body .region button, * body .countries button {
   color: white; }
 
-* html body .flags-btn {
+* body .countries .flags-btn {
   width: 13rem;
   height: 10rem; }
 
-* html body #spinner:not([hidden]) {
+* body #spinner:not([hidden]) {
   top: 0;
   left: 0;
   right: 0;
   bottom: 0; }
 
-* html body #spinner:not([hidden]) {
+* body #spinner:not([hidden]) {
   position: fixed; }

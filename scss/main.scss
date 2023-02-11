@@ -1,10 +1,8 @@
 * {
   @extend %reset;
 
-  html {
+  body {
     @extend %normalize;
-  
-    body {
     @extend %full-size;
     @extend %flex;
     @extend %flex-column;
@@ -15,14 +13,19 @@
         @extend %region-size;
         @extend %dark-background;
 
-          .europe,
-          .asia,
-          .america,
-          .africa {
-            @extend %region-btn-size;
-            @extend %region-btn-setup;
-            @extend %dark-background;
-          }
+        .europe,
+        .asia,
+        .america,
+        .africa {
+          @extend %region-btn-size;
+          @extend %region-btn-setup;
+          @extend %dark-background;
+        }
+
+        button {
+          @extend %light-font-color;
+          @extend %dark-background;
+        }
       }
 
       .chart {
@@ -36,15 +39,15 @@
         @extend %countries-size;
         @extend %dark-background;
         @extend %scroll;
-      }
 
-      button {
-        @extend %light-font-color;
-        @extend %dark-background;
-      }
+        .flags-btn {
+          @extend %flag-size;
+        }
 
-      .flags-btn {
-        @extend %flag-size;
+        button {
+          @extend %light-font-color;
+          @extend %dark-background;
+        }
       }
 
       #spinner:not([hidden]) {
@@ -68,7 +71,6 @@
         }
       }
     }
-  }
 }
 
 %scroll {

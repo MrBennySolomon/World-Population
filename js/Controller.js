@@ -69,7 +69,7 @@ class Controller {
       const data = this.model.parse(this.model.getData(region));
       for (let i = 0; i < data.length; i++) {
         this.view.countriesDiv.innerHTML += `
-          <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+          <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="90%" height="70%"></button>
         `;
       }
     }else{
@@ -79,7 +79,7 @@ class Controller {
         this.model.setData(region, this.model.stringify(data));
         for (let i = 0; i < data.length; i++) {
           this.view.countriesDiv.innerHTML += `
-            <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="100px" height="60px"></button>
+            <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="90%" height="70%"></button>
           `;
         }
       });
