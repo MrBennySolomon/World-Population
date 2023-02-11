@@ -6,7 +6,8 @@ const countriesDiv    = document.querySelector('.countries');
 const chart           = document.querySelector('.chart');
 const spinner         = document.getElementById('spinner');
 const ctx             = document.getElementById('myChart');
-const printChart        = (country, citiesArr, populationArr, yearsArr) => {
+
+const printChart      = (country, citiesArr, populationArr, yearsArr)   => {
   return new Chart(ctx, {
     type: "bar",
     data: {
@@ -38,7 +39,7 @@ const printChart        = (country, citiesArr, populationArr, yearsArr) => {
     }
   });
 };
-const fetchCountry    = async (country)                               => {
+const fetchCountry    = async (country)                                 => {
   spinner.removeAttribute("hidden");
   try {
     const response = await fetch(
@@ -52,7 +53,7 @@ const fetchCountry    = async (country)                               => {
     throw new Error("fetch country went wrong");
   }
 };
-const fetchRegion     = async (region)                                => {
+const fetchRegion     = async (region)                                  => {
   spinner.removeAttribute("hidden");
   try {
     const response = await fetch(
@@ -66,7 +67,7 @@ const fetchRegion     = async (region)                                => {
     throw new Error("fetch region went wrong");
   }
 };
-const fetchPopulation = async ()                                      => {
+const fetchPopulation = async ()                                        => {
   spinner.removeAttribute("hidden");
   try {
     const response = await fetch(
@@ -74,14 +75,13 @@ const fetchPopulation = async ()                                      => {
     );
     const info = await response.json();
     spinner.setAttribute("hidden", "");
-    return info.data;
+    localStorage.setItem("allPopulationData", JSON.stringify(info.data));
   } catch (error) {
     spinner.setAttribute("hidden", "");
     throw new Error("fetch population went wrong");
   }
 };
-
-const getPopulation   = async (data, country)                         => {
+const getPopulation   = async (data, country)                           => {
   const citiesArr     = [];
   const yearsArr      = [];
   const populationArr = [];
@@ -115,10 +115,8 @@ const getPopulation   = async (data, country)                         => {
     chartStatus.destroy();
   }
   printChart("israel", citiesArr, populationArr, yearsArr);
-  
-  localStorage.setItem("allPopulationData", JSON.stringify(data));
 };
-btnEurope.addEventListener("click", (event)                           => {
+btnEurope.addEventListener("click", (event)                             => {
   countriesDiv.innerHTML = "";
   fetchRegion("Europe").then((data) => {
     localStorage.setItem("europe", JSON.stringify(data));
@@ -129,7 +127,7 @@ btnEurope.addEventListener("click", (event)                           => {
     }
   });
 });
-btnAsia.addEventListener("click", (event)                             => {
+btnAsia.addEventListener("click", (event)                               => {
   countriesDiv.innerHTML = "";
   fetchRegion("Asia").then((data) => {
     localStorage.setItem("asia", JSON.stringify(data));
@@ -140,7 +138,7 @@ btnAsia.addEventListener("click", (event)                             => {
     }
   });
 });
-btnAmerica.addEventListener("click", (event)                          => {
+btnAmerica.addEventListener("click", (event)                            => {
   countriesDiv.innerHTML = "";
   fetchRegion("Americas").then((data) => {
     localStorage.setItem("america", JSON.stringify(data));
@@ -151,7 +149,7 @@ btnAmerica.addEventListener("click", (event)                          => {
     }
   });
 });
-btnAfrica.addEventListener("click", (event)                           => {
+btnAfrica.addEventListener("click", (event)                             => {
   countriesDiv.innerHTML = "";
   fetchRegion("Africa").then((data) => {
     localStorage.setItem("africa", JSON.stringify(data));
@@ -162,10 +160,9 @@ btnAfrica.addEventListener("click", (event)                           => {
     }
   });
 });
-countriesDiv.addEventListener("click", (e)                            => {
-  fetchCountry(e.target.getAttribute("country"));
-  getPopulation(
-    JSON.parse(localStorage.getItem("allPopulationData")),
-    e.target.getAttribute("country")
-  );
+countriesDiv.addEventListener("click", (e)                              => {
+  const countryName = e.target.getAttribute("country");
+  fetchCountry(countryName);
+  getPopulation(JSON.parse(localStorage.getItem("allPopulationData")), countryName);
 });
+fetchPopulation();
