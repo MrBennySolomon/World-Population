@@ -31,6 +31,12 @@ const printChart      = (country, citiesArr, populationArr, yearsArr)   => {
       ]
     },
     options: {
+      plugins: {
+        title: {
+            display: true,
+            text: country
+        }
+      },
       scales: {
         y: {
           beginAtZero: true
@@ -115,7 +121,7 @@ const getPopulation   = async (data, country)                           => {
   if (chartStatus != undefined) {
     chartStatus.destroy();
   }
-  printChart("israel", citiesArr, populationArr, yearsArr);
+  printChart(country, citiesArr, populationArr, yearsArr);
 };
 btnEurope.addEventListener("click", (event)                             => {
   countriesDiv.innerHTML = "";
@@ -203,27 +209,31 @@ countriesDiv.addEventListener("click", (e)                              => {
   getPopulation(JSON.parse(localStorage.getItem("allPopulationData")), countryName);
 });
 const introScreen = () => {
+  spinner.removeAttribute("hidden");
+  const countriesArr     = [];
+  const yearsArr      = [];
+  const populationArr = [];
+  const data = JSON.parse(localStorage.getItem('allPopulationData'));
 
-  if (!localStorage.getItem("africa")) {
-    fetchRegion("Africa").then((data) => {
-      localStorage.setItem("africa", JSON.stringify(data));
-    });
+  for (let i = 0; i < data.length; i++) {
+    const obj = {};
+    obj.data = [];
+    const countrySet = new Set();
+    if (data[i].populationCounts[0].value !== "null" && data[i].country != Number(data[i].country)) {
+      countrySet.add(data[i].country);
+    }
+
+    countriesArr.push(data[i].country);
+    yearsArr.push(data[i].populationCounts[0].year);
+    populationArr.push(data[i].populationCounts[0].value);
   }
-  if (!localStorage.getItem("asia")) {
-    fetchRegion("Asia").then((data) => {
-      localStorage.setItem("asia", JSON.stringify(data));
-    });
+  let chartStatus = Chart.getChart("myChart"); // <canvas> id
+  if (chartStatus != undefined) {
+    chartStatus.destroy();
   }
-  if (!localStorage.getItem("america")) {
-    fetchRegion("Americas").then((data) => {
-      localStorage.setItem("america", JSON.stringify(data));
-    });
-  }
-  if (!localStorage.getItem("europe")) {
-    fetchRegion("Europe").then((data) => {
-      localStorage.setItem("europe", JSON.stringify(data));
-    });
-  }
+  
+  printChart('all countries', countriesArr, populationArr, '2023');
+  spinner.setAttribute("hidden", "");
 }
 fetchPopulation();
 introScreen();
