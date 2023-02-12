@@ -63,10 +63,10 @@ class Controller {
     this.fillCountries('europe', 'Europe');
   }
 
-  async fillCountries(region, dbName) {
+  fillCountries(region, dbName) {
     this.view.emptyCountries();
-    if (this.model.getData(region)) {
-      const data = await this.model.parse(this.model.getData(region));
+    if (!this.model.getData(region)) {
+      const data = this.model.parse(this.model.getData(region));
       for (let i = 0; i < data.length; i++) {
         this.view.countriesDiv.innerHTML += `
           <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="90%" height="70%"></button>
