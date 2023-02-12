@@ -37,6 +37,7 @@ class Model {
       const response = fetch(`https://countriesnow.space/api/v0.1/countries/population/cities`);
       response.then((response) => response.json()).then((info) => {
         localStorage.setItem("allPopulationData", JSON.stringify(info.data));
+        controller.introScreen();
       }) 
     } catch (error) {throw new Error("fetch population went wrong")}
   }

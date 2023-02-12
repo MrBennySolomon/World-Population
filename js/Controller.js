@@ -6,9 +6,8 @@ class Controller {
 
   start() {
     this.view.startSpinner();
-    this.model.fetchPopulation().then(() => this.introScreen());
+    this.model.fetchPopulation();
     this.view.stopSpinner();
-    
   }
 
   async introScreen() {
