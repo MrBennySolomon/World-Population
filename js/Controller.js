@@ -6,16 +6,16 @@ class Controller {
 
   start() {
     this.view.startSpinner();
-    this.model.fetchPopulation();
+    this.model.fetchPopulation().then(() => this.introScreen());
     this.view.stopSpinner();
-    this.introScreen();
+    
   }
 
-  introScreen() {
+  async introScreen() {
     const countriesArr  = [];
     const populationArr = [];
 
-    const data = model.parse(model.getData('allPopulationData'));
+    const data = await model.parse(model.getData('allPopulationData'));
 
     for (let i = 0; i < data.length; i++) {
       countriesArr.push(data[i].country);
