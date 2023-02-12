@@ -9,11 +9,11 @@ class Controller {
     this.introScreen();
   }
 
-  introScreen() {
+  async introScreen() {
     const countriesArr  = [];
     const populationArr = [];
 
-    const data = model.parse(model.getData('allPopulationData'));
+    const data = await model.parse(model.getData('allPopulationData'));
 
     for (let i = 0; i < data.length; i++) {
       countriesArr.push(data[i].country);
@@ -63,10 +63,10 @@ class Controller {
     this.fillCountries('europe', 'Europe');
   }
 
-  fillCountries(region, dbName) {
+  async fillCountries(region, dbName) {
     this.view.emptyCountries();
     if (!this.model.getData(region)) {
-      const data = this.model.parse(this.model.getData(region));
+      const data = await this.model.parse(this.model.getData(region));
       for (let i = 0; i < data.length; i++) {
         this.view.countriesDiv.innerHTML += `
           <button class="flags-btn font-effect-neon">${data[i].name.common}<img country="${data[i].name.common}" src="${data[i].flags.png}" width="90%" height="70%"></button>
