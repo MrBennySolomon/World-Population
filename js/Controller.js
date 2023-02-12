@@ -11,11 +11,11 @@ class Controller {
     this.introScreen();
   }
 
-  async introScreen() {
+  introScreen() {
     const countriesArr  = [];
     const populationArr = [];
 
-    const data = await model.parse(model.getData('allPopulationData'));
+    const data = model.parse(model.getData('allPopulationData'));
 
     for (let i = 0; i < data.length; i++) {
       countriesArr.push(data[i].country);
