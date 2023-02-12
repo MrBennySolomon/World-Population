@@ -66,7 +66,7 @@ class Controller {
 
   fillCountries(region, dbName) {
     this.view.emptyCountries();
-    if (!this.model.getData(region)) {
+    if (this.model.getData(region)) {
       const data = this.model.parse(this.model.getData(region));
       for (let i = 0; i < data.length; i++) {
         this.view.countriesDiv.innerHTML += `
