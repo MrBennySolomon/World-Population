@@ -5,7 +5,9 @@ class Controller {
   }
 
   start() {
+    this.view.startSpinner();
     this.model.fetchPopulation();
+    this.view.stopSpinner();
     this.introScreen();
   }
 
